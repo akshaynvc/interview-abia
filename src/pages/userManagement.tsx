@@ -15,7 +15,7 @@ const UserManagement = () => {
   });
   const [user, setUser] = useState<string>("");
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<UserList>();
+  const [currentUser, setCurrentUser] = useState<any>();
 
   useEffect(() => {
     localStorage.setItem("userList", JSON.stringify(userList));
@@ -38,7 +38,6 @@ const UserManagement = () => {
   const handleEditing = (e: any) => {
     setCurrentUser({
       ...currentUser,
-      id: e.target.value,
       name: e.target.value,
     });
   };
@@ -52,7 +51,6 @@ const UserManagement = () => {
 
   const handleEditForm = (e: FormEvent<HTMLFormElement>, id: any) => {
     e.preventDefault();
-
     handleUpdateUser(id, currentUser);
   };
 
@@ -67,7 +65,10 @@ const UserManagement = () => {
   return (
     <Fragment>
       {isEditing ? (
-        <Box component={"form"} onSubmit={(e) => handleEditForm(e,currentUser?.id)}>
+        <Box
+          component={"form"}
+          onSubmit={(e) => handleEditForm(e, currentUser?.id)}
+        >
           <TextField
             label="Edit User"
             type="text"
